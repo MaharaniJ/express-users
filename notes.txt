@@ -1,0 +1,20 @@
+protocal+IP+PORT = API
+http://233.43.452:3000/home
+web-server:
+server connected with internet through protocol
+HTTP:
+hyper-text-transferprotocol
+create-webserver for nodejs = express
+PORT-it is a path to transfer
+3000-8000 is available
+
+
+FTP:
+SMTP:
+SSH:
+
+postman-token:postman://auth/callback?code=861eb6d4a42521403d2fe54a8f3a2d47c037e24789af10ecac67d6e43e841522
+
+
+URL parameters - to get specific user
+Query parameters - 
