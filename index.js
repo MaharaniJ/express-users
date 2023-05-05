@@ -3,10 +3,12 @@ const app = express();
 
 const users =[
     {
+        "id":1,
         "name": "person1",
         "age":21
     },
     {
+        "id":2,
         "name":"person2",
         "age":22
     }
@@ -31,7 +33,50 @@ app.post("/user",function(req,res){
 
 app.get('/users',function(req,res){
     res.json(users)
+
 })
 
+app.get("/user:/id",function(req,res){
+    let userId = (req.params.id)
+    let user = users.find((item)=>item.id==insertId)
+    if(user){
+        res.json(user)
+    }
+    else{
+        res.json({message:"User not found"})
+    }
+})
 
-app.listen(3033)
+app.put("/user/:id",function(req,res){
+    let userId = req.params.id;
+    let userIndex = users.findIndex((item)=>item.id==userId)
+   if(userIndex !=-1){
+    Object.keys(req.body).forEach((item)=>{
+        users[userIndex][item]=req.body[item]
+    });
+    res.json({message:"Done"})
+   }
+
+   else{
+    res.json({
+        message:"User not found"
+    })
+   }
+
+})
+
+app.delete('/user/:id',function(req,res){
+    let userId = req.params.id;
+    let userIndex = users.findIndex((item)=>item.id==userId)
+    if(userIndex !=-1){
+        users.splice(userIndex,1)
+        res.json({message:"User Deleted successfully"})
+    }
+    else{
+        res.json({
+            message:"User not found"
+        })
+    }
+})
+
+app.listen(3030)
