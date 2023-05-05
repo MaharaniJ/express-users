@@ -1,80 +1,80 @@
 const express = require("express");
 const app = express();
 
-const users =[
+const users = [
     {
-        "id":1,
+        "id": 1,
         "name": "person1",
-        "age":21
+        "age": 21
     },
     {
-        "id":2,
-        "name":"person2",
-        "age":22
+        "id": 2,
+        "name": "person2",
+        "age": 22
     }
 ]
 //middleware
 app.use(express.json())
 
-app.get('/home',function(req,res){
-    res.json({message:"Success...."});
+app.get('/home', function (req, res) {
+    res.json({ message: "Success...." });
 });
 
-app.get('/about',function(req,res){
-    res.json({message:"About...."})
+app.get('/about', function (req, res) {
+    res.json({ message: "About...." })
 })
 
-app.post("/user",function(req,res){
+app.post("/user", function (req, res) {
     console.log(req.body)
-    req.body.id = users.length+1;
+    req.body.id = users.length + 1;
     users.push(req.body)
-    res.json({message:"User Created Successfully..."})
+    res.json({ message: "User Created Successfully..." })
 })
 
-app.get('/users',function(req,res){
+app.get('/users', function (req, res) {
     res.json(users)
 
 })
 
-app.get("/user:/id",function(req,res){
+app.get("/user:/id", function (req, res) {
     let userId = (req.params.id)
-    let user = users.find((item)=>item.id==insertId)
-    if(user){
+    let user = users.find((item) => item.id == insertId)
+    if (user) {
         res.json(user)
     }
-    else{
-        res.json({message:"User not found"})
+    else {
+        res.json({ message: "User not found" })
     }
 })
 
-app.put("/user/:id",function(req,res){
+app.put("/user/:id", function (req, res) {
     let userId = req.params.id;
-    let userIndex = users.findIndex((item)=>item.id==userId)
-   if(userIndex !=-1){
-    Object.keys(req.body).forEach((item)=>{
-        users[userIndex][item]=req.body[item]
-    });
-    res.json({message:"Done"})
-   }
-
-   else{
-    res.json({
-        message:"User not found"
-    })
-   }
-
-})
-
-app.delete('/user/:id',function(req,res){
-    let userId = req.params.id;
-    let userIndex = users.findIndex((item)=>item.id==userId)
-    if(userIndex !=-1){
-        users.splice(userIndex,1)
-        res.json({message:"User Deleted successfully"})
+    let userIndex = users.findIndex((item) => item.id == userId)
+    if (userIndex != -1) {
+        Object.keys(req.body).forEach((item) => {
+            users[userIndex][item] = req.body[item]
+        });
+        res.json({ message: "Updated Done" })
     }
-    else{
+
+    else {
         res.json({
-            message:"User not found"
+            message: "User not found"
+        })
+    }
+
+})
+
+app.delete('/user/:id', function (req, res) {
+    let userId = req.params.id;
+    let userIndex = users.findIndex((item) => item.id == userId)
+    if (userIndex != -1) {
+        users.splice(userIndex, 1)
+        res.json({ message: "User Deleted successfully" })
+    }
+    else {
+        res.json({
+            message: "User not found"
         })
     }
 })
