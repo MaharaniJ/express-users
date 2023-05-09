@@ -17,6 +17,7 @@ const users = [
 app.use(express.json())
 
 app.get('/home', function (req, res) {
+    
     res.json({ message: "Success...." });
 });
 
@@ -32,6 +33,14 @@ app.post("/user", function (req, res) {
 })
 
 app.get('/users', function (req, res) {
+    let qParms = req.query
+    console.log(qParms)
+    let resUser=[]
+    for(let index = parseInt(req.query.offset);index<parseInt(req.query.limit)+parseInt(req.body.offset);index++){
+        resUser.push(users[index])
+    }
+
+    
     res.json(users)
 
 })
